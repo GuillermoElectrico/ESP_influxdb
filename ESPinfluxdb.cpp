@@ -22,9 +22,8 @@ DB_RESPONSE Influxdb::opendb(String db, String user, String password) {
 
 DB_RESPONSE Influxdb::opendb(String db) {
 
-		WiFiClient client;
         HTTPClient http;
-        http.begin(client,"http://" + _host + ":" + _port + "/query?q=show%20databases"); //HTTP
+        http.begin("http://" + _host + ":" + _port + "/query?q=show%20databases"); //HTTP
 
         int httpCode = http.GET();
 
@@ -52,13 +51,11 @@ DB_RESPONSE Influxdb::write(dbMeasurement data) {
 DB_RESPONSE Influxdb::write(String data) {
 
 
-		WiFiClient client;
-
         HTTPClient http;
 
         DEBUG_PRINT("HTTP post begin...");
 
-        http.begin(client,"http://" + _host + ":" + _port + "/write?db=" + _db); //HTTP
+        http.begin("http://" + _host + ":" + _port + "/write?db=" + _db); //HTTP
 		
         http.addHeader("Content-Type", "text/plain");
 
@@ -92,10 +89,9 @@ DB_RESPONSE Influxdb::query(String sql) {
         DEBUG_PRINT("Requesting URL: ");
         DEBUG_PRINT(url);
 
-		WiFiClient client;
         HTTPClient http;
 
-        http.begin(client,"http://" + _host + ":" + _port + url); //HTTP
+        http.begin("http://" + _host + ":" + _port + url); //HTTP
 
 
         // start connection and send HTTP header
